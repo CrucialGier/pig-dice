@@ -1,8 +1,14 @@
 .box {
+  font-size: 24px;
+  text-align: center;
   border-style: solid;
   border-color: black;
   border-width: 3px;
   border-radius: 10px;
   max-width: 100px;
   height: 60px;
+}
+
+p {
+  margin-top: 10px;
 }

@@ -22,6 +22,12 @@
     Example Input: User clicks "hold"
     Example Output: total = 0 Score = 9 "Ready Player Two"
 
+5.1 App will take user input for names, and display a tally of player's scores.    
+
+5.2 When a player's score reaches 100 they win the round.
+    Example Input: User clicks "hold", score is >= 100
+    Example Output: "You Win!!"
+
 6. Player can see a rolling dice when the user clicks "Roll".
 
 7. Dice will display the randomly generated number.
