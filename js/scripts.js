@@ -1,15 +1,36 @@
 var currentPlayer = 1;
+var players = 1;
+
+var p1;
+var p2;
 
 var switchPlayer = function() {
   if (currentPlayer === 1) {
     currentPlayer = 2;
+    $("#turn").text(p2.name);
   } else {
     currentPlayer = 1;
+    $("#turn").text(p1.name);
   }
 }
 
-function Player() {
-  this.name = prompt("Enter Player Name");
+var compTurn = function() {
+  p2.roll();
+  $("#dice-result").text(p2.diceResult);
+  $("#total").text(p2.total);
+  if (currentPlayer === 2) {
+    p2.roll();
+    $("#dice-result").text(p2.diceResult);
+    $("#total").text(p2.total);
+    if (currentPlayer === 2) {
+      p2.hold();
+      $("#score2").text(p2.score);
+    }
+  }
+}
+
+function Player(name) {
+  this.name = name;
   this.diceResult = 0;
   this.total = 0;
   this.score = 0;
@@ -20,24 +41,44 @@ function Player() {
     }
     this.total = 0;
     switchPlayer();
-    $("#turn").text(this.name);
   };
   this.roll = function() {
     this.diceResult = Math.floor((Math.random() * 6) + 1);
     if (this.diceResult === 1) {
       this.total = 0;
       switchPlayer();
-      $("#turn").text(this.name);
+      if (players === 1) {
+        compTurn();
+      }
     } else {
       this.total = this.total += this.diceResult;
     }
   };
 };
 
-var p1 = new Player();
-var p2 = new Player();
 
 $(document).ready(function() {
+  $("#1p").click(function() {
+    $(".playerBtn").hide();
+    $("#nameInput1").show();
+  });
+  $("#2p").click(function() {
+    $(".playerBtn").hide();
+    $("#nameInput2, #nameInput1").show();
+    players = 2;
+  });
+  $("#startGame").click(function(event) {
+    event.preventDefault();
+    p1 = new Player($("#nameValue1").val());
+    if (players === 1) {
+      p2 = new Player("Computer");
+    } else {
+      p2 = new Player($("#nameValue2").val())
+    }
+    $("#game").show();
+    $("#nameInput2, #nameInput1").hide();
+    $("#turn").text(p1.name);
+  });
   $("#roll").click(function() {
     if (currentPlayer === 1) {
       p1.roll();
@@ -49,10 +90,25 @@ $(document).ready(function() {
       $("#total").text(p2.total);
     }
   });
+
+  // $("#hold").click(function() {
+  //   if (currentPlayer === 1) {
+  //     p1.hold();
+  //     $("#score1").text(p1.score);
+  //   } else {
+  //     p2.hold();
+  //     $("#score2").text(p2.score);
+  //   }
+  // });
+
   $("#hold").click(function() {
+    debugger;
     if (currentPlayer === 1) {
       p1.hold();
       $("#score1").text(p1.score);
+      if (players === 1) {
+        compTurn();
+      }
     } else {
       p2.hold();
       $("#score2").text(p2.score);

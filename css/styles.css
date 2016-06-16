@@ -13,8 +13,21 @@
   height: 60px;
 }
 
-.filler1 {
+button .filler1 {
   margin-left: 25%;
+}
+
+#nameInput1 {
+  display: none;
+}
+
+#nameInput2 {
+  display: none;
+}
+
+
+#game {
+  display: none;
 }
 
 p {
