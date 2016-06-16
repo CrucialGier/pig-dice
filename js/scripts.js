@@ -15,11 +15,14 @@ var switchPlayer = function() {
 }
 
 var compTurn = function() {
+  setTimeout(1000);
   p2.roll();
+  setTimeout(1000);
   $("#dice-result").text(p2.diceResult);
   $("#total").text(p2.total);
   if (currentPlayer === 2) {
     p2.roll();
+    setTimeout(1000);
     $("#dice-result").text(p2.diceResult);
     $("#total").text(p2.total);
     if (currentPlayer === 2) {
@@ -45,6 +48,7 @@ function Player(name) {
   this.roll = function() {
     this.diceResult = Math.floor((Math.random() * 6) + 1);
     if (this.diceResult === 1) {
+      swal("You Rolled a 1!");
       this.total = 0;
       switchPlayer();
       if (players === 1) {
@@ -102,8 +106,7 @@ $(document).ready(function() {
   // });
 
   $("#hold").click(function() {
-    debugger;
-    if (currentPlayer === 1) {
+      if (currentPlayer === 1) {
       p1.hold();
       $("#score1").text(p1.score);
       if (players === 1) {
